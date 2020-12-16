@@ -6,10 +6,23 @@ Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [
   {
-    path: '/',
+    path: '/inicio',
     name: 'Home',
     component: Home
   },
+  {
+    path:'/crearProducto',
+    name:'crearproducto',
+    component: () => import(/* webpackChunkName: "create" */ '../views/Createproducto.vue')
+
+  },
+  {
+    path:'/consultarProducto',
+    name:'consultarproducto',
+    component: () => import(/* webpackChunkName: "get" */ '../views/GetProducto.vue')
+
+  },
+
   {
     path: '/about',
     name: 'About',

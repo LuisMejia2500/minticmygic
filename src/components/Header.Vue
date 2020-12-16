@@ -1,29 +1,19 @@
 <template>
-  <div class="Header">
-       <h1>MyGIC</h1>
+  <div class="header">    
+    <h1>MyGIC</h1>
     <nav>
-        <button> <router-link to="/">Inicio</router-link></button>
+        <button> <router-link to="/inicio">Inicio</router-link></button>
         <button>Crear</button>
         <button  > Consultar </button>
     </nav>
   </div>
-  </div>
 </template>
+    
+<script>
 
-<script lang="ts">
-import Vue from 'vue';
-
-export default Vue.extend({
-  name: 'Header',
-  props: {
-    msg: String,
-  },
-});
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
- body{
+    body{
         margin: 0 0 0 0;
         font-family: /*'Josefin Sans', sans-serif,*/ 'Bungee', cursive;
     }
@@ -63,4 +53,5 @@ export default Vue.extend({
    .button:hover{
        background-color: white;
    } 
+
 </style>
