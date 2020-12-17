@@ -24,6 +24,7 @@
  body{
       margin: 0 0 0 0;
       font-family: /*'Josefin Sans', sans-serif,*/ 'Bungee', cursive;
+      background-image: linear-gradient(to bottom right, white 0%, rgb(183, 240, 50) 100%);
 
  }
    nav{

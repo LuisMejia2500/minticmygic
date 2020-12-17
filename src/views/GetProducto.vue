@@ -1,5 +1,5 @@
 <template>
-  <div class="create">
+  <div id="create">
     <h2 align="center">Consultar producto </h2>
 
     
@@ -11,11 +11,7 @@
           <div class="titulo">
 
                       <tr>
-          
-          
           <td ></td>
-          
-          
         </tr>
           </div>
 
@@ -24,8 +20,8 @@
             <div class="izquierda">
               <form>
               <ul>
-                <li><input type="text" placeholder="Codigo Producto"></li>
-                <li><button>CONSULTAR PRODUCTO</button></li>
+                <li><input type="text" v-model="codigo" placeholder="Codigo Producto"></li>
+                <li><button v-on:click="consultarProducto">CONSULTAR PRODUCTO</button></li>
                 
               </ul>
             </form>
@@ -37,11 +33,12 @@
           <td>
             <div class="derecha">          
                 <h2>Informacion</h2>
-                <form>
-                  <textarea rows="10" cols="30" readonly="readonly">Codigo: 
-                    Nombre:     Cantidad disponible: Costo de adquisicion: Precio venta: Fecha vencimiento
-                  </textarea>
-                </form>
+                <p v-if="!condatos"><span>Nombre: </span>{{products.nombre}}</p>
+                <p v-if="!condatos"><sp>Cantidad disponible:</sp>{{products.cantidad_disponible}}</p>
+                <p v-if="!condatos"><span>Costo de adquisicion:</span>{{products.costo_adquisicion}}</p>
+                <p v-if="!condatos"><span>Precio venta:</span>{{products.precio_venta}}</p>
+                
+               
 </div>
 
           </td>
@@ -51,19 +48,50 @@
     </div>
 
   </div>
-</template>
+</template>>
+<script>
+import axios from 'axios';
+export default {
+  data:function(){
+    return{
+      codigo:"",
+      condatos:true,
+      products:{
+       
+        nombre:"",
+        cantidad_disponible:"",
+        costo_adquisicion:"",
+        precio_venta:"",
+      }
+    }
 
-<script lang="ts">
-import Vue from 'vue';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
-
-export default Vue.extend({
-  name: 'Create',
-  components: {
-    
   },
-});
+  methods:{
+    consultarProducto: function(){
+      let self = this
+      axios.get("https://sprint2-grupo3.herokuapp.com/product/"+self.codigo)
+        .then((result)=>{
+          self.products.nombre=result.data.nombre,
+          self.products.cantidad_disponible=result.data.cantidad_disponible,
+          self.products.costo_adquisicion=result.data.costo_adquisicion,
+          self.products.precio_venta=result.data.precio_venta,
+          self.condatos=true
+
+         
+        })
+        .catch((error=>{
+          alert("ERROR"+ error)
+        }))
+
+    }
+
+
+  }
+  
+}
 </script>
+
+
 <style scoped>
 div{
   text-align: center;

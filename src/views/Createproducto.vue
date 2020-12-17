@@ -1,17 +1,17 @@
 
 <template>
-  <div class="create">
+  <div id="create">
     <div class="formulario">
       <h2>Crear producto </h2>
       <form v-on:submit.prevent="GuardarProducto">
         <ul>
-          <li><input type="text" v-model="GuardarProducto.codigo" placeholder="Codigo Producto"></li>
-          <li><input type="text"  v-model="GuardarProducto.nombre" placeholder="Nombre Producto"></li>
-          <li><input type="text" v-model="GuardarProducto.cantidad_disponible" placeholder="Cantidad disponible"></li>
-          <li><input type="text" v-model="GuardarProducto.costo_adquisicion" placeholder="Costo de adquisicion"></li>
-          <li><input type="text"  v-model=" GuardarProducto.precio_venta" placeholder="Precio venta"></li>
-          <li><input type="text"  v-model=" GuardarProducto.fecha_caducidad" placeholder="Fecha vencimiento"></li>
-          <li><button type="submit">CREAR PRODUCTO</button></li>
+          <li><input type="text" v-model="productos.codigo" placeholder="Codigo Producto"></li>
+          <li><input type="text"  v-model="productos.nombre" placeholder="Nombre Producto"></li>
+          <li><input type="text" v-model="productos.cantidad_disponible" placeholder="Cantidad disponible"></li>
+          <li><input type="text" v-model="productos.costo_adquisicion" placeholder="Costo de adquisicion"></li>
+          <li><input type="text"  v-model="productos.precio_venta" placeholder="Precio venta"></li>
+          
+          <li><button type="submit" >CREAR PRODUCTO</button></li>
         </ul>
 
     </form>
@@ -25,37 +25,40 @@
 <script lang="ts">
 import Vue from 'vue';
 import axios from 'axios';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
 
-export default ({
-  name: 'create',
-  data:function(){
-    return{
-      producto:{
+export default {
+  
+    name: "create", 
+    data: function(){
+        return {
+  productos:{
         codigo:"",
         nombre:"",
         cantidad_disponible:"",
         costo_adquisicion:"",
         precio_venta:"",
-        fecha_caducidad:""
+        
+            }
+        }
+    },
+    methods:{
+      GuardarProducto:function() {
+        let self = this
+        
+        axios.post("https://sprint2-grupo3.herokuapp.com/product/",self.productos,{headers:{}})
+        .then((result)=>{
+                    alert("Producto agregado correctamente")
+                })
+                .catch((error)=>{
+                    alert("ERROR"+ error)
+                })
+
       }
     }
-  },
-  methods:{
-    GuardarProducto:function(){
-      let self = this
-      axios.post("https://sprint2-grupo3.herokuapp.com/product/", self.GuardarProducto , {headers:{}})
-        .then((result)=>{
-          alert("El producto fue Registrado Correctamente")
-        })
-        .catch((error)=>{
-          alert("Error" + error.response.status )
-        })
-    }
-  }
-  
 
-});
+
+
+}
 
 </script>
 <style scoped>
